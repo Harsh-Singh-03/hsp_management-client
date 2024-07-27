@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .icon-btn{
+        @apply flex items-center justify-center w-8 h-8 transition-all border rounded-full border-neutral-300 text-neutral-500 hover:text-neutral-800 hover:border-neutral-400
+    }
+    .dashboard_card{
+        @apply flex-1 bg-white rounded-lg aspect-video
+    }
+    .table_head{
+        @apply text-base text-center text-white rounded min-w-fit whitespace-nowrap
+    }
+}
