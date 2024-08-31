@@ -12,7 +12,7 @@ export const AppointmentStatusUpdataDialog = ({ open, setOpen, appointment_id }:
         <Dialog open={open} onOpenChange={(val) => setOpen(val)}>
             <DialogContent className="max-w-screen-sm p-0 overflow-hidden">
                 <DialogHeader className="p-4 pb-0">
-                    <DialogTitle className="text-xl font-bold tracking-wide text-center">Create new appointment</DialogTitle>
+                    <DialogTitle className="text-xl font-bold tracking-wide text-center">Update Appointment Status</DialogTitle>
                     <DialogDescription className="text-center">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam autem similique qui minus suscipit?</DialogDescription>
                 </DialogHeader>
 

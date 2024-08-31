@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/table"
 import { Fragment, useState } from "react"
 // import { parseISO, format } from 'date-fns';
-import { Edit, Loader2 } from "lucide-react";
+import { Edit, Loader2, View } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { UserAvatar } from "@/components/global/user-avatar";
@@ -20,6 +20,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { format, parseISO } from "date-fns";
 import { UpdateAppointment } from "../dialog/update-appointment";
 import { appointment_list } from "@/slice/admin/appointment_slice";
+import AppointmentDetailsModal from "@/components/global/appointment_details";
 
 interface props {
     data: any,
@@ -28,6 +29,7 @@ interface props {
 
 export const AppointmentTable = ({ data, loading }: props) => {
     const [dialogOpen, setDialogOpen] = useState(false)
+    const [dialogOpen1, setDialogOpen1] = useState(false)
     const [initialData, setInitialData] = useState<any>(null)
     const dispatch = useDispatch<AppDispatch>()
 
@@ -130,9 +132,9 @@ export const AppointmentTable = ({ data, loading }: props) => {
                                         <Button variant='ghost' size='icon' className="transition-all hover:bg-sky-800/80 text-sky-800 hover:text-white" onClick={() => { setDialogOpen(true); setInitialData(doc); }} >
                                             <Edit className="w-5 h-5" />
                                         </Button>
-                                        {/* <Button variant='ghost' size='icon' className="transition-all hover:bg-sky-800/80 text-sky-800 hover:text-white" >
-                                            <Edit className="w-5 h-5" />
-                                        </Button> */}
+                                        <Button variant='ghost' size='icon' onClick={() => { setDialogOpen1(true); setInitialData(doc); }} >
+                                            <View className="w-5 h-5" />
+                                        </Button>
                                     </div>
                                 </TableCell>
                             </TableRow>
@@ -141,6 +143,7 @@ export const AppointmentTable = ({ data, loading }: props) => {
                 </TableBody>
             </Table>
             <UpdateAppointment open={dialogOpen} setOpen={setDialogOpen} initialData={initialData} />
+            <AppointmentDetailsModal open={dialogOpen1} setOpen={setDialogOpen1} id={initialData?._id} type="admin" />
         </Fragment>
     )
 }

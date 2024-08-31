@@ -55,7 +55,7 @@ export const AppointmentStatusUpdate = ({ appointment_id }: { appointment_id: st
                         name="status"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Assign department :</FormLabel>
+                                <FormLabel>Uodate Status :</FormLabel>
                                 <FormControl>
                                     <Select
                                         value={field.value}

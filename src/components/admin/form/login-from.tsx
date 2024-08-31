@@ -56,13 +56,13 @@ export const LoginForm = ({page}: {page: 'doctor' | 'admin' | 'patient'}) => {
             toast.success(data.message)
             if(page === 'admin'){
                 dispatch(validate_admin())
-                navigate('/admin')
+                navigate('/admin', {replace: true})
             }else if(page === 'doctor'){
                 dispatch(validate_doctor())
-                navigate('/doctor')
+                navigate('/doctor', {replace: true})
             }else{
                 dispatch(validate_patient())
-                navigate('/patient')
+                navigate('/patient', {replace: true})
             }
         }else{
             toast.error(data.message)

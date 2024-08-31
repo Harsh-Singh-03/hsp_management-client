@@ -16,6 +16,7 @@ import { Label } from "@/components/ui/label"
 import { UserAvatar } from "@/components/global/user-avatar"
 import { Loader2, Trash2 } from "lucide-react"
 import { patient_list } from "@/slice/admin/patient_slice"
+import { useNavigate } from "react-router-dom"
 
 const formSchema = z.object({
     name: z.string().min(3, {
@@ -43,15 +44,18 @@ const formSchema = z.object({
 
 interface props {
     isApp?: boolean
+    isHome?: boolean
     onData?: Dispatch<SetStateAction<any>>
 }
 
-export const CreatePatientFrom = ({isApp, onData}: props) => {
+export const CreatePatientFrom = ({isApp, onData, isHome}: props) => {
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [fileLoading, setFileLoading] = useState(false)
     const dispatch = useDispatch<AppDispatch>();
     const [profileImg, setProfileImg] = useState<string | null>(null)
     const closeRef = useRef<HTMLButtonElement | null>(null)
+
+    const navigate = useNavigate()
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -73,10 +77,16 @@ export const CreatePatientFrom = ({isApp, onData}: props) => {
             values.profile_image = profileImg
         }
         setIsSubmitting(true)
-        let data = await patient_api.create(values)
+        let data = null
+        if(isHome) {
+            data = await patient_api.register(values)
+        }else{
+            data = await patient_api.create(values)
+        }
         setIsSubmitting(false)
         if (data?.success) {
             form.reset()
+            setProfileImg(null)
             toast.success(data.message)
             if(isApp){
                 closeRef.current?.click()
@@ -85,6 +95,9 @@ export const CreatePatientFrom = ({isApp, onData}: props) => {
                 if(onData !== undefined){
                     onData(data?.data)
                 }
+            }
+            if(isHome){
+                navigate('/patient/login')
             }
         } else {
             toast.error(data.message)
@@ -259,12 +272,12 @@ export const CreatePatientFrom = ({isApp, onData}: props) => {
                     </div>
                 </ScrollArea>
                 <div className="flex items-center justify-end gap-4 p-4 mt-6 bg-neutral-100">
-                    {!isApp && (
+                    {!isApp && !isHome && (
                         <DialogClose ref={closeRef} >
                             <Button type="button" variant='second' disabled={isSubmitting}>Close</Button>
                         </DialogClose>
                     )}
-                    <Button type="submit" variant='primary' disabled={isSubmitting} >{isApp ? 'Next' : 'Onboard'}</Button>
+                    <Button type="submit" variant='primary' disabled={isSubmitting} >{isApp ? 'Next' : isHome ? 'Register' : 'Onboard'}</Button>
                 </div>
             </form>
         </Form>

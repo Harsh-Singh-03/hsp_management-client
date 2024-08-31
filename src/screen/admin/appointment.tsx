@@ -70,21 +70,6 @@ export const Appointments = () => {
                     </AppointmentDialog>
                 </AdminHeading>
 
-                <div className="flex w-full gap-6">
-                    <div className="shadow-sm dashboard_card bg-neutral-100">
-
-                    </div>
-                    <div className="shadow-sm dashboard_card bg-neutral-100">
-
-                    </div>
-                    <div className="shadow-sm dashboard_card bg-neutral-100">
-
-                    </div>
-                    <div className="shadow-sm dashboard_card bg-neutral-100">
-
-                    </div>
-                </div>
-
                 <Separator className="h-[0.5px] bg-neutral-200" />
 
                 <div className="flex flex-wrap justify-between gap-4">

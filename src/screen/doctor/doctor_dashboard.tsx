@@ -3,11 +3,13 @@ import { DoctorAppointmentTable } from "@/components/doctor/appointment_table"
 import { AdminHeading } from "@/components/global/admin-heading"
 import { PaginationComponent } from "@/components/global/pagination"
 import { SearchComponent } from "@/components/global/search copy"
+import { StatsCard } from "@/components/global/stats-card"
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Separator } from "@/components/ui/separator"
+import { doctor_analytics } from "@/slice/doctor/analytics_slice"
 import { doctor_appointment_list } from "@/slice/doctor/appointment_slice"
 import { AppDispatch, RootState } from "@/store"
-import { LayoutDashboard } from "lucide-react"
+import { CalendarClock, ClipboardCheck, LayoutDashboard, RectangleEllipsis, SquareActivity } from "lucide-react"
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useLocation } from "react-router-dom"
@@ -15,6 +17,7 @@ import { useLocation } from "react-router-dom"
 export const DoctorDashboard = () => {
     const dispatch = useDispatch<AppDispatch>();
     const { data, loading } = useSelector((state: RootState) => state.doctor_appointment);
+    const doctor_stats = useSelector((state: RootState) => state.doctor_analytics);
     const doctor = useSelector((state: RootState) => state.doctor_auth);
     const location = useLocation()
     const params = new URLSearchParams(location.search)
@@ -36,6 +39,7 @@ export const DoctorDashboard = () => {
 
         if (doctor.data && doctor.data?._id) {
             fetchData()
+            dispatch(doctor_analytics())
         }
 
     }, [dispatch, pageSize, searchTerm, page, doctor.data]);
@@ -44,22 +48,14 @@ export const DoctorDashboard = () => {
         <DoctorLayout>
             <div className="space-y-4 lg:space-y-6">
                 <AdminHeading title="Doctor Panel" Icon={LayoutDashboard} IconClass="text-sky-800 stroke-[2px]">
-                   <></>
+                    <></>
                 </AdminHeading>
 
-                <div className="flex w-full gap-6">
-                    <div className="shadow-sm dashboard_card bg-neutral-100">
-
-                    </div>
-                    <div className="shadow-sm dashboard_card bg-neutral-100">
-
-                    </div>
-                    <div className="shadow-sm dashboard_card bg-neutral-100">
-
-                    </div>
-                    <div className="shadow-sm dashboard_card bg-neutral-100">
-
-                    </div>
+                <div className="flex w-full gap-4 lg:gap-6 overflow-x-scroll max-w-[100%] h-auto pr-4">
+                    <StatsCard style="primary" Icon={CalendarClock} title="Total Appointments" value={doctor_stats.data?.total_appointments} />
+                    <StatsCard style="secondary" Icon={RectangleEllipsis} title="Pending Appointments" value={doctor_stats.data?.pending_appointments} />
+                    <StatsCard style="third" Icon={ClipboardCheck} title="Completed Appointments" value={doctor_stats?.data?.completetd_appointments} />
+                    <StatsCard style="fourth" Icon={SquareActivity} title="Total Patients" value={doctor_stats.data?.total_patient} />
                 </div>
 
                 <Separator className="h-[0.5px] bg-neutral-200" />

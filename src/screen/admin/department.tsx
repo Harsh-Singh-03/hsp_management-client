@@ -9,7 +9,7 @@ import { Separator } from "@/components/ui/separator";
 import { dep_list } from "@/slice/admin/department_slice";
 import { AppDispatch, RootState } from "@/store";
 // import { addDays } from "date-fns";
-import { Hospital, Plus } from "lucide-react";
+import {  Hospital, Plus } from "lucide-react";
 import { useEffect } from "react";
 // import { DateRange } from "react-day-picker";
 import { useDispatch, useSelector } from "react-redux";
@@ -51,20 +51,12 @@ export const Department = () => {
                     </CreateDepartment>
                 </AdminHeading>
 
-                <div className="flex w-full gap-6">
-                    <div className="shadow-sm dashboard_card bg-neutral-100">
-
-                    </div>
-                    <div className="shadow-sm dashboard_card bg-neutral-100">
-
-                    </div>
-                    <div className="shadow-sm dashboard_card bg-neutral-100">
-
-                    </div>
-                    <div className="shadow-sm dashboard_card bg-neutral-100">
-
-                    </div>
-                </div>
+                {/* <div className="flex w-full gap-6">
+                    <StatsCard style="primary" Icon={BarChart3} title="New Label" value="100"  />
+                    <StatsCard style="secondary" Icon={BarChart3} title="New Label" value="100"  />
+                    <StatsCard style="third" Icon={BarChart3} title="New Label" value="100"  />
+                    <StatsCard style="fourth" Icon={BarChart3} title="New Label" value="100"  />
+                </div> */}
 
                 <Separator className="h-[0.5px] bg-neutral-200" />
 

@@ -46,13 +46,29 @@ export const admin_credentials = {
         } catch (error : any) {
             return {message: error?.response?.data?.message || 'server error', success: false}
         }
-    }
+    },
+    logout: async () => {
+        try {
+            const {data} = await axios.post(`${base_url}/admin/sign-out`,{}, {withCredentials: true})
+            return data
+        } catch (error : any) {
+            return {message: error?.response?.data?.message || 'server error', success: false}
+        }
+    },
 }
 
 export const doctors_api = {
     create : async (values: any) => {
         try {
             const {data} = await axios.post(`${base_url}/admin/doctor/onboard`, values, {withCredentials: true})
+            return data
+        } catch (error : any) {
+            return {message: error?.response?.data?.message || 'server error', success: false}
+        }
+    },
+    register : async (values: any) => {
+        try {
+            const {data} = await axios.post(`${base_url}/doctor/register`, values, {withCredentials: true})
             return data
         } catch (error : any) {
             return {message: error?.response?.data?.message || 'server error', success: false}
@@ -88,6 +104,14 @@ export const patient_api = {
     create : async (values: any) => {
         try {
             const {data} = await axios.post(`${base_url}/admin/patient/create`, values, {withCredentials: true})
+            return data
+        } catch (error : any) {
+            return {message: error?.response?.data?.message || 'server error', success: false}
+        }
+    },
+    register : async (values: any) => {
+        try {
+            const {data} = await axios.post(`${base_url}/patient/register`, values, {withCredentials: true})
             return data
         } catch (error : any) {
             return {message: error?.response?.data?.message || 'server error', success: false}
@@ -131,6 +155,14 @@ export const appointment_api = {
     addHistory: async (id: string, values: any) => {
         try {
             const {data} = await axios.put(`${base_url}/doctor/appointment/update/${id}`, values, {withCredentials: true})
+            return data
+        } catch (error : any) {
+            return {message: error?.response?.data?.message || 'server error', success: false}
+        }
+    },
+    getDetails: async (id: string, type:'doctor' | 'admin' | 'patient') => {
+        try {
+            const {data} = await axios.get(`${base_url}/${type}/appointment/detail/${id}`, {withCredentials: true})
             return data
         } catch (error : any) {
             return {message: error?.response?.data?.message || 'server error', success: false}

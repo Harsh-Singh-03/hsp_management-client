@@ -1,15 +1,18 @@
 import { AdminHeading } from "@/components/global/admin-heading"
 import { PaginationComponent } from "@/components/global/pagination"
 import { SearchComponent } from "@/components/global/search copy"
+import { StatsCard } from "@/components/global/stats-card"
 import { PatientLayout } from "@/components/patient"
 import { AppointmentPatientDialog } from "@/components/patient/appointment_dialog"
 import { PatientAppointmentTable } from "@/components/patient/appointment_table"
 import { Button } from "@/components/ui/button"
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Separator } from "@/components/ui/separator"
+import { patient_analytics } from "@/slice/patient/analytics_slice"
 import { patient_appointment_list } from "@/slice/patient/appointment_slice"
 import { AppDispatch, RootState } from "@/store"
-import { LayoutDashboard, Plus } from "lucide-react"
+import { format } from "date-fns"
+import { CalendarCheck, CalendarClock, LayoutDashboard, Plus, RectangleEllipsis, Stethoscope } from "lucide-react"
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useLocation } from "react-router-dom"
@@ -17,6 +20,7 @@ import { useLocation } from "react-router-dom"
 export const PatientDashboard = () => {
     const dispatch = useDispatch<AppDispatch>();
     const { data, loading } = useSelector((state: RootState) => state.patient_appointment);
+    const patient_stats = useSelector((state: RootState) => state.patient_analytics);
     const patient = useSelector((state: RootState) => state.patient_auth);
     const location = useLocation()
     const params = new URLSearchParams(location.search)
@@ -38,6 +42,7 @@ export const PatientDashboard = () => {
 
         if (patient.data && patient.data?._id) {
             fetchData()
+            dispatch(patient_analytics())
         }
 
     }, [dispatch, pageSize, searchTerm, page, patient.data]);
@@ -48,25 +53,17 @@ export const PatientDashboard = () => {
                 <AdminHeading title="Patient Dashboard" Icon={LayoutDashboard} IconClass="text-sky-800 stroke-[2px]">
                     <AppointmentPatientDialog>
                         <Button variant='primary' size='default' className="items-center gap-2 text-base">
-                            Book new appointment
+                            Request new booking
                             <Plus className="w-4 h-4" />
                         </Button>
                     </AppointmentPatientDialog>
                 </AdminHeading>
 
-                <div className="flex w-full gap-6">
-                    <div className="shadow-sm dashboard_card bg-neutral-100">
-
-                    </div>
-                    <div className="shadow-sm dashboard_card bg-neutral-100">
-
-                    </div>
-                    <div className="shadow-sm dashboard_card bg-neutral-100">
-
-                    </div>
-                    <div className="shadow-sm dashboard_card bg-neutral-100">
-
-                    </div>
+                <div className="flex w-full gap-4 lg:gap-6 overflow-x-scroll max-w-[100%] h-auto pr-4 custom-scrollbar">
+                    <StatsCard style="primary" Icon={CalendarCheck} title="Total Appointments" value={patient_stats.data?.total_appointments} />
+                    <StatsCard style="secondary" Icon={RectangleEllipsis} title="Upcoming Appointments" value={patient_stats.data?.upcoming_appointments} />
+                    <StatsCard style="third" Icon={CalendarClock} title="Last Appointment" value={ patient_stats?.data?.last_appointment_date && format(patient_stats?.data?.last_appointment_date, 'do MMMM, yyyy')} />
+                    <StatsCard style="fourth" Icon={Stethoscope} title="Current consultant" value={patient_stats.data?.consultant?.doctor_name} />
                 </div>
 
                 <Separator className="h-[0.5px] bg-neutral-200" />

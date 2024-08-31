@@ -10,18 +10,18 @@ export const TopBar = () => {
                     <img src="/logo.png" alt="logo" className="object-contain w-10 h-10" />
                     <h4 className="text-xl font-semibold tracking-wide text-neutral-700">Hospitality</h4>
                 </div>
-                <Search />
+                {/* <Search />
                 <button className="absolute z-40 cursor-pointer right-4 text-neutral-400 hover:text-neutral-600">
                     <SearchIcon className="w-4 h-4" />
-                </button>
+                </button> */}
             </div>
             <div className="flex items-center gap-4">
-                <button className="icon-btn">
+                {/* <button className="icon-btn">
                     <Mail className="w-4 h-4" />
                 </button>
                 <button className="icon-btn">
                     <BellDot className="w-4 h-4" />
-                </button>
+                </button> */}
                 <button className="icon-btn">
                     <UserAvatar placeholder="Harsh" imageUrl="#" size="sm" />
                 </button>

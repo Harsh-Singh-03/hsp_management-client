@@ -58,10 +58,10 @@ export const DepartmentTable = ({ data, loading }: props) => {
             <Table className="overflow-x-auto -translate-y-2 border-separate border-spacing-2">
                 <TableHeader>
                     <TableRow className="h-12 px-4 bg-sky-800 hover:bg-sky-800">
-                        <TableHead className="text-base text-center text-white rounded">Number</TableHead>
+                        <TableHead className="text-base text-center text-white rounded">SL No.</TableHead>
                         <TableHead className="text-base text-center text-white rounded">Name</TableHead>
                         <TableHead className="text-base text-center text-white rounded">Created At</TableHead>
-                        <TableHead className="text-base text-center text-white rounded">Head1</TableHead>
+                        {/* <TableHead className="text-base text-center text-white rounded">Head1</TableHead> */}
                         <TableHead className="text-base text-center text-white rounded">Actions</TableHead>
                     </TableRow>
                 </TableHeader>
@@ -71,10 +71,10 @@ export const DepartmentTable = ({ data, loading }: props) => {
                         const formattedDate = format(date, 'MMMM do, yyyy');
                         return (
                             <TableRow className="h-12 px-4 bg-neutral-100" key={index}>
-                                <TableCell className="overflow-hidden text-sm font-medium text-center rounded whitespace-nowrap">#{index}</TableCell>
+                                <TableCell className="overflow-hidden text-sm font-medium text-center rounded whitespace-nowrap">{index + 1}</TableCell>
                                 <TableCell className="overflow-hidden text-sm font-medium text-center capitalize rounded min-w-fit whitespace-nowrap">{doc?.title}</TableCell>
                                 <TableCell className="overflow-hidden text-sm font-medium text-center rounded min-w-fit whitespace-nowrap">{formattedDate}</TableCell>
-                                <TableCell className="overflow-hidden text-sm font-medium text-center rounded min-w-fit whitespace-nowrap">#1</TableCell>
+                                {/* <TableCell className="overflow-hidden text-sm font-medium text-center rounded min-w-fit whitespace-nowrap">#1</TableCell> */}
                                 <TableCell className="text-sm font-medium text-center rounded min-w-fit">
                                     <div className="flex items-center justify-center gap-1">
                                         <Button variant='ghost' size='icon' className="transition-all hover:bg-sky-800/80 text-sky-800 hover:text-white" onClick={() => {

@@ -19,6 +19,7 @@ import { Label } from "@/components/ui/label"
 import { UserAvatar } from "@/components/global/user-avatar"
 import { Loader2, Trash2 } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { useNavigate } from "react-router-dom"
 
 const formSchema = z.object({
     name: z.string().min(3, {
@@ -39,25 +40,26 @@ const formSchema = z.object({
     experience: z.string().min(0, {
         message: 'Experience must be a non-negative number.',
     }),
-    departments: z.array(z.string()).min(1, {
-        message: 'Department is required.',
-    }),
+    departments: z.array(z.string()).optional(),
     profile_image: z.string().optional(),
 })
 
 interface props {
     isEdit?: boolean,
     initialData?: any,
-    department?: any
+    department?: any,
+    isHome?: boolean,
 }
 
-export const OnboardingForm = ({isEdit, initialData, department}: props) => {
+export const OnboardingForm = ({isEdit, initialData, department, isHome}: props) => {
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [fileLoading, setFileLoading] = useState(false)
     const dispatch = useDispatch<AppDispatch>();
     const { data } = useSelector((state: RootState) => state.department);
     const [profileImg, setProfileImg] = useState<string | null>(null)
     const closeRef = useRef<HTMLButtonElement | null>(null)
+
+    const navigate = useNavigate()
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -97,22 +99,29 @@ export const OnboardingForm = ({isEdit, initialData, department}: props) => {
         let data: any;
         if(isEdit){
             delete values.password
-            console.log(values)
-            console.log(initialData._id)
             data = await doctors_api.update(values, initialData._id)
         }else{
             if(!values.password){
                 toast.error('Password is required.')
                 return
             }
-            data = await doctors_api.create(values)
+            if(isHome){
+                data = await doctors_api.register(values)
+            }else{
+                data = await doctors_api.create(values)
+            }
         }
         setIsSubmitting(false)
         if(data.success) {
             closeRef.current?.click()
             form.reset()
-            toast.success(data.message)
-            dispatch(doctor_list())
+            if(isHome){
+                toast.success("Request for for register as doctor submited!!")
+                navigate('/doctor/login')
+            }else{
+                toast.success(data.message)
+                dispatch(doctor_list())
+            }
         }else{
             toast.error(data.message)
         }
@@ -243,31 +252,33 @@ export const OnboardingForm = ({isEdit, initialData, department}: props) => {
                                 </FormItem>
                             )}
                         />
-                         <Controller
-                            control={form.control}
-                            name="departments"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Assign departments :</FormLabel>
-                                    <FormControl >
-                                        <MultiSelector values={field.value} onValuesChange={field.onChange} loop className="space-y-0">
-                                            <MultiSelectorTrigger>
-                                                <MultiSelectorInput placeholder="Assign departments." className="text-sm" />
-                                            </MultiSelectorTrigger>
-                                            <MultiSelectorContent>
-                                                <MultiSelectorList className="z-[999] bg-white mt-2">
-                                                    {!!data && data?.map((item, i) => (
-                                                        <MultiSelectorItem value={`${item.title}-${item._id}`} key={i}>{item?.title}</MultiSelectorItem>
-                                                    ))}
-
-                                                </MultiSelectorList>
-                                            </MultiSelectorContent>
-                                        </MultiSelector>
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
+                        {!isHome && (
+                            <Controller
+                               control={form.control}
+                               name="departments"
+                               render={({ field }) => (
+                                   <FormItem>
+                                       <FormLabel>Assign departments :</FormLabel>
+                                       <FormControl >
+                                           <MultiSelector values={field.value} onValuesChange={field.onChange} loop className="space-y-0">
+                                               <MultiSelectorTrigger>
+                                                   <MultiSelectorInput placeholder="Assign departments." className="text-sm" />
+                                               </MultiSelectorTrigger>
+                                               <MultiSelectorContent>
+                                                   <MultiSelectorList className="z-[999] bg-white mt-2">
+                                                       {!!data && data?.map((item, i) => (
+                                                           <MultiSelectorItem value={`${item.title}-${item._id}`} key={i}>{item?.title}</MultiSelectorItem>
+                                                       ))}
+   
+                                                   </MultiSelectorList>
+                                               </MultiSelectorContent>
+                                           </MultiSelector>
+                                       </FormControl>
+                                       <FormMessage />
+                                   </FormItem>
+                               )}
+                           />
+                        )}
                         <FormField
                             control={form.control}
                             name="experience"
@@ -284,12 +295,14 @@ export const OnboardingForm = ({isEdit, initialData, department}: props) => {
                     </div>
                 </ScrollArea>
                 <div className="flex items-center justify-end gap-4 p-4 mt-6 bg-neutral-100">
-                    <DialogClose ref={closeRef} className={cn(
-                        isEdit && 'hidden'
-                    )}>
-                        <Button type="button" variant='second' disabled={isSubmitting}>Close</Button>
-                    </DialogClose>
-                    <Button type="submit" variant='primary' disabled={isSubmitting} >{isEdit ? 'Update' : 'Onboard'}</Button>
+                    {!isHome && (
+                        <DialogClose ref={closeRef} className={cn(
+                            isEdit && 'hidden'
+                        )}>
+                            <Button type="button" variant='second' disabled={isSubmitting}>Close</Button>
+                        </DialogClose>
+                    )}
+                    <Button type="submit" variant='primary' disabled={isSubmitting} >{isEdit ? 'Update' : isHome ? 'Register' : 'Onboard'}</Button>
                 </div>
             </form>
         </Form>

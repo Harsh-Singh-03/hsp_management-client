@@ -12,7 +12,7 @@ export const DoctorLogin = () => {
 
     useEffect(() => {
         if(isLoggedIn){
-            navigate('/doctor')
+            navigate('/doctor', {replace: true})
         }
         if(loading === true && !isLoggedIn){
             dispatch(validate_doctor())

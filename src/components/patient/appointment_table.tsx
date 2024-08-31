@@ -8,13 +8,12 @@ import {
 } from "@/components/ui/table"
 import { Fragment, useState } from "react"
 // import { parseISO, format } from 'date-fns';
-import { Edit, Loader2 } from "lucide-react";
+import { Loader2, View } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { UserAvatar } from "@/components/global/user-avatar";
-import { AppDispatch } from "@/store";
-import { useDispatch } from "react-redux";
 import { format, parseISO } from "date-fns";
+import AppointmentDetailsModal from "../global/appointment_details";
 
 interface props {
     data: any,
@@ -24,7 +23,6 @@ interface props {
 export const PatientAppointmentTable = ({ data, loading }: props) => {
     const [dialogOpen, setDialogOpen] = useState(false)
     const [initialData, setInitialData] = useState<any>(null)
-    const dispatch = useDispatch<AppDispatch>()
 
     if (loading) {
         return (
@@ -91,8 +89,8 @@ export const PatientAppointmentTable = ({ data, loading }: props) => {
 
                                 <TableCell className="text-sm font-medium text-center rounded min-w-fit">
                                     <div className="flex items-center justify-center gap-1">
-                                        <Button variant='ghost' size='icon' className="transition-all hover:bg-sky-800/80 text-sky-800 hover:text-white" onClick={() => { setDialogOpen(true); setInitialData(doc); }} >
-                                            <Edit className="w-5 h-5" />
+                                        <Button variant='ghost' size='icon' className="transition-all hover:bg-sky-800/80 text-sky-800 hover:text-white" onClick={() => { setDialogOpen(true); setInitialData(doc._id); }} >
+                                            <View className="w-5 h-5" />
                                         </Button>
                                     </div>
                                 </TableCell>
@@ -101,7 +99,7 @@ export const PatientAppointmentTable = ({ data, loading }: props) => {
                     })}
                 </TableBody>
             </Table>
-            {/* <UpdateAppointment open={dialogOpen} setOpen={setDialogOpen} initialData={initialData} /> */}
+            <AppointmentDetailsModal open={dialogOpen} setOpen={setDialogOpen} id={initialData} type="patient" />
         </Fragment>
     )
 }

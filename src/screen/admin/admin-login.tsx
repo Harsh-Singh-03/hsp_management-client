@@ -12,7 +12,7 @@ export const AdminLogin = () => {
 
     useEffect(() => {
         if(isLoggedIn){
-            navigate('/admin')
+            navigate('/admin', {replace: true})
         }
         if(loading === true && !isLoggedIn){
             dispatch(validate_admin())

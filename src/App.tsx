@@ -16,6 +16,7 @@ import { ValidatePatient } from './components/patient/validator'
 import { PatientDashboard } from './screen/patient/patient_dashboard'
 import { ValidateDoctor } from './components/doctor/validator'
 import { DoctorDashboard } from './screen/doctor/doctor_dashboard'
+import { Home } from './screen/Home.js'
 
 function App() {
   return (
@@ -47,6 +48,7 @@ function App() {
           <Route index element={<DoctorDashboard />} />
         </Route>
         {/* credentials route */}
+        <Route path="/" element={<Home />} />
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/doctor/login" element={<DoctorLogin />} />
         <Route path="/patient/login" element={<PatientLogin />} />
