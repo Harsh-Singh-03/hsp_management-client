@@ -17,6 +17,8 @@ import { PatientDashboard } from './screen/patient/patient_dashboard'
 import { ValidateDoctor } from './components/doctor/validator'
 import { DoctorDashboard } from './screen/doctor/doctor_dashboard'
 import { Home } from './screen/Home.js'
+import { ForgetPass } from './screen/forget_pass.js'
+import { NewPass } from './screen/new_pass.js'
 
 function App() {
   return (
@@ -52,6 +54,8 @@ function App() {
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/doctor/login" element={<DoctorLogin />} />
         <Route path="/patient/login" element={<PatientLogin />} />
+        <Route path="/forget-pass/:path" element={<ForgetPass />} />
+        <Route path="/new-pass/:path/:id/:token" element={<NewPass />} />
 
       </Routes>
       <ToastContainer

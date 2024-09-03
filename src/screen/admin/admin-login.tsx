@@ -1,9 +1,10 @@
 import { LoginForm } from "@/components/admin/form/login-from"
+import { Button } from "@/components/ui/button";
 import { validate_admin } from "@/slice/admin/credential_slice";
 import { AppDispatch, RootState } from "@/store";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export const AdminLogin = () => {
     const { isLoggedIn, loading } = useSelector((state: RootState) => state.admin_auth);
@@ -32,6 +33,9 @@ export const AdminLogin = () => {
                 <div className="flex flex-col items-center justify-center flex-1 w-full px-4 md:items-start md:px-0 md:pr-4">
                     <h2 className="mb-6 text-2xl font-bold tracking-wide">ADMIN LOGIN</h2>
                     <LoginForm page="admin" />
+                    <Button asChild variant='link'>
+                        <Link to="/forget-pass/admin">Forget Pass ?</Link>
+                    </Button>
                 </div>
             </div>
         )

@@ -32,19 +32,7 @@ export const Patients = () => {
                 search: searchTerm,
                 page
             }
-            const fetchPromise = dispatch(patient_list(body)).unwrap();
-            toast.promise(
-                fetchPromise,
-                {
-                    pending: 'Fetching data...',
-                    success: 'Data fetched successfully!',
-                    error: {
-                        render({ data }) {
-                            return `Error : ${data}`;
-                        },
-                    },
-                }
-            );
+            dispatch(patient_list(body)).unwrap();
         };
 
         fetchData()
@@ -59,7 +47,7 @@ export const Patients = () => {
 
     return (
         <AdminLayout>
-            <div className="flex flex-col flex-1 min-h-screen gap-6 p-6 mx-6 bg-white rounded-lg">
+            <div className="flex flex-col flex-1 min-h-screen gap-4 p-4 bg-white rounded-lg md:gap-6 md:p-6 md:mx-6">
 
                 <AdminHeading title="Patients" Icon={Users} IconClass="text-sky-800 stroke-[2px]">
                     <OnboardPatient>

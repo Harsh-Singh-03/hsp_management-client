@@ -40,7 +40,7 @@ export const Department = () => {
 
     return (
         <AdminLayout>
-            <div className="flex flex-col flex-1 min-h-screen gap-6 p-6 mx-6 bg-white rounded-lg">
+            <div className="flex flex-col flex-1 min-h-screen gap-4 p-4 bg-white rounded-lg md:gap-6 md:p-6 md:mx-6">
 
                 <AdminHeading title="Department" Icon={Hospital} IconClass="text-sky-800 stroke-[2px]">
                     <CreateDepartment>

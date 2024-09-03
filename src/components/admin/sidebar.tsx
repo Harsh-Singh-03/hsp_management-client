@@ -83,9 +83,9 @@ export const SideBar = () => {
             <div className="block lg:hidden">
                 <Sheet >
                     <SheetTrigger asChild>
-                        <Button variant={"ghost"} size={"sm"} className="fixed top-4 left-4 z-[50]">
+                        <button className="fixed top-4 left-4 z-[50]">
                             <Menu />
-                        </Button>
+                        </button>
                     </SheetTrigger>
                     <SheetContent className="p-0" side={'left'}>
                         <SideMenu hide={true} />

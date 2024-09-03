@@ -11,11 +11,11 @@ interface props {
 
 export const AdminHeading = ({title, Icon, children, IconClass, headingStyle}: props) => {
     return (
-        <div className="flex items-center justify-between">
+        <div className="flex flex-wrap items-center justify-between gap-4">
             <div className="flex items-center gap-4">
                 {Icon && (
                     <Icon className={cn(
-                        "w-10 h-10",
+                        "h-10 w-10",
                         IconClass
                     )} />
                 )}

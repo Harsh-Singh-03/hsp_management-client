@@ -47,6 +47,22 @@ export const admin_credentials = {
             return {message: error?.response?.data?.message || 'server error', success: false}
         }
     },
+    forget_pass: async (values: any) => {
+        try {
+            const {data} = await axios.post(`${base_url}/admin/forget-password`, values )
+            return data
+        } catch (error : any) {
+            return {message: error?.response?.data?.message || 'server error', success: false}
+        }
+    },
+    new_pass: async (values: any) => {
+        try {
+            const {data} = await axios.post(`${base_url}/admin/new-password`, values )
+            return data
+        } catch (error : any) {
+            return {message: error?.response?.data?.message || 'server error', success: false}
+        }
+    },
     logout: async () => {
         try {
             const {data} = await axios.post(`${base_url}/admin/sign-out`,{}, {withCredentials: true})
@@ -77,6 +93,22 @@ export const doctors_api = {
     login: async (values: any) => {
         try {
             const {data} = await axios.post(`${base_url}/doctor/login`, values, {withCredentials: true})
+            return data
+        } catch (error : any) {
+            return {message: error?.response?.data?.message || 'server error', success: false}
+        }
+    },
+    forget_pass: async (values: any) => {
+        try {
+            const {data} = await axios.post(`${base_url}/doctor/forget-password`, values )
+            return data
+        } catch (error : any) {
+            return {message: error?.response?.data?.message || 'server error', success: false}
+        }
+    },
+    new_pass: async (values: any) => {
+        try {
+            const {data} = await axios.post(`${base_url}/doctor/new-password`, values )
             return data
         } catch (error : any) {
             return {message: error?.response?.data?.message || 'server error', success: false}
@@ -120,6 +152,22 @@ export const patient_api = {
     login: async (values: any) => {
         try {
             const {data} = await axios.post(`${base_url}/patient/login`, values, {withCredentials: true})
+            return data
+        } catch (error : any) {
+            return {message: error?.response?.data?.message || 'server error', success: false}
+        }
+    },
+    forget_pass: async (values: any) => {
+        try {
+            const {data} = await axios.post(`${base_url}/patient/forget-password`, values )
+            return data
+        } catch (error : any) {
+            return {message: error?.response?.data?.message || 'server error', success: false}
+        }
+    },
+    new_pass: async (values: any) => {
+        try {
+            const {data} = await axios.post(`${base_url}/patient/new-password`, values )
             return data
         } catch (error : any) {
             return {message: error?.response?.data?.message || 'server error', success: false}

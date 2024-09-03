@@ -2,8 +2,8 @@ import { UserAvatar } from "../global/user-avatar"
 
 export const TopBar = () => {
     return (
-        <header className="sticky top-0 left-0 z-20 flex items-center justify-between w-screen h-16 pr-6 bg-white border-b lg:pl-64">
-            <div className="flex items-center gap-1 px-4 py-2 ml-14 lg:hidden">
+        <header className="sticky top-0 left-0 z-20 flex items-center justify-between w-screen h-16 pr-4 bg-white border-b md:pr-6 lg:pl-64">
+            <div className="flex items-center gap-1 px-4 py-2 ml-8 lg:hidden">
                 <img src="/logo.png" alt="logo" className="object-contain w-10 h-10" />
                 <h4 className="text-xl font-semibold tracking-wide text-neutral-700">Hospitality</h4>
             </div>
