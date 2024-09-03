@@ -22,13 +22,13 @@ export const AdminOverView = () => {
     
     return (
         <AdminLayout>
-            <div className="flex flex-col gap-6">
+            <div className="flex flex-col gap-4 lg:gap-6">
                 <CardList />
-                <div className="flex w-full gap-6 px-6">
+                <div className="flex flex-col w-full gap-4 px-4 lg:gap-6 lg:px-6 lg:flex-row">
                     <Chart1 />
                     <Chart2 />
                 </div>
-                <div className="flex w-full gap-6 px-6">
+                <div className="flex flex-col w-full gap-4 px-4 lg:gap-6 lg:px-6 lg:flex-row">
                     <DoctorTable />
                     <Chart3 />
                 </div>

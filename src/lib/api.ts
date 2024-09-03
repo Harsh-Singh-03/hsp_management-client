@@ -130,6 +130,14 @@ export const doctors_api = {
             return {message: error?.response?.data?.message || 'server error', success: false}
         }
     },
+    logout: async () => {
+        try {
+            const {data} = await axios.post(`${base_url}/doctor/sign-out`,{}, {withCredentials: true})
+            return data
+        } catch (error : any) {
+            return {message: error?.response?.data?.message || 'server error', success: false}
+        }
+    },
 }
 
 export const patient_api = {
@@ -184,6 +192,14 @@ export const patient_api = {
     list: async (body: any) => {
         try {
             const {data} = await axios.post(`${base_url}/admin/patients/list`, body, {withCredentials: true})
+            return data
+        } catch (error : any) {
+            return {message: error?.response?.data?.message || 'server error', success: false}
+        }
+    },
+    logout: async () => {
+        try {
+            const {data} = await axios.post(`${base_url}/patient/sign-out`,{}, {withCredentials: true})
             return data
         } catch (error : any) {
             return {message: error?.response?.data?.message || 'server error', success: false}

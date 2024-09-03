@@ -77,7 +77,7 @@ export const AdminPatientTable = ({ data, loading }: props) => {
                                 <TableCell className="overflow-hidden text-sm font-medium text-center capitalize rounded min-w-fit whitespace-nowrap">{doc?.gender}</TableCell>
                                 <TableCell className="overflow-hidden text-sm font-medium text-center rounded min-w-fit whitespace-nowrap">{doc?.age}</TableCell>
                                 <TableCell className="overflow-hidden text-sm font-medium text-center rounded min-w-fit whitespace-nowrap">{formattedDate}</TableCell>
-                                <TableCell className="overflow-hidden text-sm font-medium text-center rounded min-w-fit whitespace-nowrap">{doc?.address}</TableCell>
+                                <TableCell className="overflow-hidden text-sm font-medium text-center rounded min-w-[250px] max-w-[200px]">{doc?.address}</TableCell>
                               
                              
                                 <TableCell className="text-sm font-medium text-center rounded min-w-fit">

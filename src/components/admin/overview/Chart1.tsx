@@ -78,7 +78,7 @@ export const Chart1 = () => {
     ];
 
     return (
-        <div className='w-[60%] max-h-[430px] bg-white rounded-xl min-w-[400px]'>
+        <div className='hidden lg:block w-[60%] max-h-[430px] bg-white rounded-xl min-w-[400px]'>
             <div className='flex items-center justify-between p-4'>
                 <h4 className='text-base font-semibold text-neutral-700'>Patient Overview</h4>
                 <div className='flex items-center gap-4'>

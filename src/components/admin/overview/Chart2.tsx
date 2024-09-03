@@ -39,7 +39,7 @@ export const Chart2 = () => {
                     </Pie>
                 </PieChart>
             </div>
-            <div className='flex items-center justify-center gap-4'>
+            <div className='flex flex-wrap items-center justify-center gap-4'>
                 <div className='flex items-center gap-1'>
                     <span className='w-3 h-3 rounded-full bg-[#0088FE]'></span>
                     <span className='text-xs font-medium text-neutral-500'>Department</span>

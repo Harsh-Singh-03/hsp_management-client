@@ -9,7 +9,6 @@ import { useDispatch, useSelector } from "react-redux"
 import { newActiveIndex } from "@/slice/admin/basic_slice"
 import { admin_credentials } from "@/lib/api"
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet"
-import { Button } from "../ui/button"
 export const SideBar = () => {
     const { value } = useSelector((state: RootState) => state.activeIndex);
     const dispatch = useDispatch<AppDispatch>();

@@ -48,7 +48,7 @@ export const Chart3 = () => {
   ];
 
   return (
-    <div className='w-[50%] max-h-[430px] bg-white rounded-xl min-w-[400px]'>
+    <div className='w-full lg:w-[50%] max-h-[430px] bg-white rounded-xl lg:min-w-[400px]'>
       <div className='flex items-center justify-between p-4'>
         <h4 className='text-base font-semibold text-neutral-700'>Appointment Overview</h4>
         <Button size='sm' variant='outline' className='rounded-full'>
