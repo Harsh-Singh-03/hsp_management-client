@@ -13,12 +13,12 @@ import { useDispatch, useSelector } from "react-redux"
 import { DialogClose } from "@/components/ui/dialog"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { CheckIcon } from "lucide-react"
+// import { CheckIcon } from "lucide-react"
 import { dep_list } from "@/slice/admin/department_slice"
 import { doctor_list } from "@/slice/admin/doctor_slice"
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
-import { CaretSortIcon } from "@radix-ui/react-icons"
-import { cn } from "@/lib/utils"
+// import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+// import { CaretSortIcon } from "@radix-ui/react-icons"
+// import { cn } from "@/lib/utils"
 import { appointment_list } from "@/slice/admin/appointment_slice"
 
 const formSchema = z.object({
@@ -41,7 +41,7 @@ export const UpAppForm = ({ initialData }: { initialData: any }) => {
     const dispatch = useDispatch<AppDispatch>();
     const { data } = useSelector((state: RootState) => state.department);
     const doctorsList = useSelector((state: RootState) => state.doctors_list);
-    const [open, setOpen] = useState(false)
+    // const [open, setOpen] = useState(false)
     const [doc_list, setDocList] = useState<any[]>([])
 
     const closeRef = useRef<HTMLButtonElement | null>(null)
@@ -76,14 +76,14 @@ export const UpAppForm = ({ initialData }: { initialData: any }) => {
         setDocList(doctorsList?.data?.docs || [])
     }, [doctorsList])
 
-    const changeDoc = (value: string) => {
-        if (value !== '') {
-            const fil_arr = doctorsList?.data?.docs.filter((doc: any) => (doc?.name?.includes(value) || doc?.email?.includes(value) || doc?.phone?.includes(value)))
-            setDocList(fil_arr)
-        } else {
-            setDocList(doctorsList?.data?.docs || [])
-        }
-    }
+    // const changeDoc = (value: string) => {
+    //     if (value !== '') {
+    //         const fil_arr = doctorsList?.data?.docs.filter((doc: any) => (doc?.name?.includes(value) || doc?.email?.includes(value) || doc?.phone?.includes(value)))
+    //         setDocList(fil_arr)
+    //     } else {
+    //         setDocList(doctorsList?.data?.docs || [])
+    //     }
+    // }
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         console.log(values)
@@ -113,7 +113,7 @@ export const UpAppForm = ({ initialData }: { initialData: any }) => {
             <form onSubmit={form.handleSubmit(onSubmit)} className="w-full">
                 <ScrollArea className="h-[50vh]">
                     <div className="w-full px-4 space-y-4 pb-0.5">
-                        <Controller
+                        {/* <Controller
                             control={form.control}
                             name="doctor"
                             render={({ field }) => (
@@ -134,8 +134,8 @@ export const UpAppForm = ({ initialData }: { initialData: any }) => {
                                                     <CaretSortIcon className="w-4 h-4 ml-2 opacity-50 shrink-0" />
                                                 </Button>
                                             </PopoverTrigger>
-                                            <PopoverContent className="w-full min-w-full p-4">
-                                                <Input type="text" placeholder="Search doctor..." className="w-full mb-3 h-9" onChange={(e) => changeDoc(e.target.value)} />
+                                            <PopoverContent className="p-4 pointer-events-auto ">
+                                                <Input type="text" placeholder="Search doctor..." className="w-full mb-3 h-9 z-[999999999] pointer-events-auto" onChange={(e) => {changeDoc(e.target.value); console.log("object");}} />
                                                 {doc_list.length === 0 && (
                                                     <p className="text-center w-96">No doctor found.</p>
                                                 )}
@@ -149,6 +149,7 @@ export const UpAppForm = ({ initialData }: { initialData: any }) => {
                                                                 setOpen(false);
                                                                 form.setValue("doctor", framework._id);
                                                                 changeDoc('');
+                                                                console.log("object");
                                                             }}
                                                         >
                                                             {framework?.name}
@@ -164,6 +165,32 @@ export const UpAppForm = ({ initialData }: { initialData: any }) => {
 
                                             </PopoverContent>
                                         </Popover>
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        /> */}
+                         <Controller
+                            control={form.control}
+                            name="doctor"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Assign doctor :</FormLabel>
+                                    <FormControl>
+                                        <Select
+                                            value={field.value}
+                                            onValueChange={field.onChange}
+                                            disabled={isSubmitting}
+                                        >
+                                            <SelectTrigger>
+                                                <SelectValue placeholder="Select doctor" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                {!!doc_list && doc_list?.map((item, i) => (
+                                                    <SelectItem className="hover:bg-neutral-200" value={item._id} key={i}>{item?.name}</SelectItem>
+                                                ))}
+                                            </SelectContent>
+                                        </Select>
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -213,7 +240,7 @@ export const UpAppForm = ({ initialData }: { initialData: any }) => {
                                             </SelectTrigger>
                                             <SelectContent>
                                                 {!!data && data?.map((item, i) => (
-                                                    <SelectItem value={item._id} key={i}>{item?.title}</SelectItem>
+                                                    <SelectItem value={item._id} key={i} className="hover:bg-neutral-200">{item?.title}</SelectItem>
                                                 ))}
                                             </SelectContent>
                                         </Select>

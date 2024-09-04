@@ -111,7 +111,9 @@ export const AppointmentTable = ({ data, loading }: props) => {
                                         <PopoverContent className="flex flex-col w-48 p-2">
                                             {statusArr.map((it, i) => (
                                                 <Button
-                                                    onClick={() => onStatusUpdate({ status: it.value }, doc._id)}
+                                                    onClick={() => {
+                                                        doc?.doctor ? onStatusUpdate({ status: it.value }, doc._id) : toast.info("Please assign a doctor first");
+                                                    }}
                                                     variant='ghost'
                                                     className="justify-start flex-1"
                                                     disabled={doc.status === it.value}
