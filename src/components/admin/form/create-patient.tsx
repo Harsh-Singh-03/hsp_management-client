@@ -156,7 +156,7 @@ export const CreatePatientFrom = ({isApp, onData, isHome}: props) => {
                                 <FormItem>
                                     <FormLabel>Name :</FormLabel>
                                     <FormControl>
-                                        <Input type="text" placeholder="Doctor name.." {...field} disabled={isSubmitting} />
+                                        <Input type="text" placeholder="Patient name.." {...field} disabled={isSubmitting} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -182,7 +182,7 @@ export const CreatePatientFrom = ({isApp, onData, isHome}: props) => {
                                 <FormItem>
                                     <FormLabel>Phone :</FormLabel>
                                     <FormControl>
-                                        <Input type="phone" placeholder="Doctors number.." {...field} disabled={isSubmitting} />
+                                        <Input type="phone" placeholder="Patient number.." {...field} disabled={isSubmitting} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>

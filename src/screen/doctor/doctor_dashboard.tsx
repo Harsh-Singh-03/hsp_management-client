@@ -4,15 +4,19 @@ import { AdminHeading } from "@/components/global/admin-heading"
 import { PaginationComponent } from "@/components/global/pagination"
 import { SearchComponent } from "@/components/global/search copy"
 import { StatsCard } from "@/components/global/stats-card"
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { Button } from "@/components/ui/button"
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Separator } from "@/components/ui/separator"
+import { doctors_api } from "@/lib/api"
 import { doctor_analytics } from "@/slice/doctor/analytics_slice"
 import { doctor_appointment_list } from "@/slice/doctor/appointment_slice"
 import { AppDispatch, RootState } from "@/store"
-import { CalendarClock, ClipboardCheck, LayoutDashboard, RectangleEllipsis, SquareActivity } from "lucide-react"
+import { CalendarClock, ClipboardCheck, LayoutDashboard, RectangleEllipsis, SquareActivity, Terminal } from "lucide-react"
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useLocation } from "react-router-dom"
+import { toast } from "react-toastify"
 
 export const DoctorDashboard = () => {
     const dispatch = useDispatch<AppDispatch>();
@@ -25,6 +29,7 @@ export const DoctorDashboard = () => {
 
     const [page, setPage] = useState(1)
     const [pageSize, setPageSize] = useState('10')
+    const [isVerifing, setIsVerifing] = useState(false)
 
     useEffect(() => {
         const fetchData = async () => {
@@ -44,8 +49,32 @@ export const DoctorDashboard = () => {
 
     }, [dispatch, pageSize, searchTerm, page, doctor.data]);
 
+    const onVerify = async () => {
+        setIsVerifing(true)
+        const data = await doctors_api.verify_email_req({})
+        if(data.success) {
+            setIsVerifing(false)
+            toast.success(data.message)
+            // dispatch(validate_patient())
+        }else{
+            toast.error(data.message)
+        }
+    }
+
     return (
         <DoctorLayout>
+             {doctor.data?.isEmailVerified !== true && (
+                <Alert className="mb-4" variant='destructive'>
+                    <Terminal className="w-4 h-4" />
+                    <AlertTitle>Email Verification!</AlertTitle>
+                    <AlertDescription className="flex items-center justify-between">
+                        Please verify your email address to continue booking appointments.
+                        <Button size='sm' className="ml-2" disabled={isVerifing} onClick={onVerify}>
+                            Verify Email
+                        </Button>
+                    </AlertDescription>
+                </Alert>
+            )}
             <div className="space-y-4 lg:space-y-6">
                 <AdminHeading title="Doctor Panel" Icon={LayoutDashboard} IconClass="text-sky-800 stroke-[2px]">
                     <></>

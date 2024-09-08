@@ -34,7 +34,7 @@ export const admin_sidebar = [
     // },
     {
         title: 'Support',
-        url: '#',
+        url: '/admin/support',
         icon: HeartHandshake
     },
 ]

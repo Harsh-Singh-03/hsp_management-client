@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils"
 import { LogOutIcon, Menu } from "lucide-react"
 import { admin_sidebar } from "@/constant/admin"
-import { Link } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 import { ScrollArea } from "../ui/scroll-area"
 import { Separator } from "../ui/separator"
 import { AppDispatch, RootState } from "@/store"
@@ -9,9 +9,19 @@ import { useDispatch, useSelector } from "react-redux"
 import { newActiveIndex } from "@/slice/admin/basic_slice"
 import { admin_credentials } from "@/lib/api"
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet"
+import { useEffect } from "react"
 export const SideBar = () => {
     const { value } = useSelector((state: RootState) => state.activeIndex);
     const dispatch = useDispatch<AppDispatch>();
+    const location = useLocation()
+
+    useEffect(() => {
+        admin_sidebar.forEach((item, i) => {
+            if(item.url === location.pathname){
+                dispatch(newActiveIndex(i))
+            }
+        })
+    }, [])
 
     const signOut = async () => {
         const data = await admin_credentials.logout()

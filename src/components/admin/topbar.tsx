@@ -7,6 +7,7 @@ import { Separator } from "../ui/separator";
 import { Button } from "../ui/button";
 import { LogOut, ShieldQuestion, UserCog } from "lucide-react";
 import { admin_credentials } from "@/lib/api";
+import { UpdatePassDialog } from "../global/update_password";
 
 export const TopBar = () => {
 
@@ -67,10 +68,12 @@ export const TopBar = () => {
                                     <UserCog className="w-4 h-4" />
                                     <span>Manage Profile</span>
                                 </Button>
-                                <Button variant='ghost' className="justify-start w-full gap-x-3 text-muted-foreground">
-                                    <ShieldQuestion className="w-4 h-4" />
-                                    <span>Reset password</span>
-                                </Button>
+                                <UpdatePassDialog page="admin">
+                                    <Button variant='ghost' className="justify-start w-full gap-x-3 text-muted-foreground">
+                                        <ShieldQuestion className="w-4 h-4" />
+                                        <span>Reset password</span>
+                                    </Button>
+                                </UpdatePassDialog>
                                 <Separator className="w-full my-2" />
                                 <Button variant='ghost' className="justify-start w-full gap-x-3 text-muted-foreground" onClick={() => signOut()}>
                                     <LogOut className="w-4 h-4" />

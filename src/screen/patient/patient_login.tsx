@@ -31,7 +31,7 @@ export const PatientLogin = () => {
     
                 </div>
                 <div className="flex flex-col items-center justify-center flex-1 w-full px-4 md:items-start md:px-0 md:pr-4">
-                    <h2 className="mb-6 text-2xl font-bold tracking-wide">Patient LOGIN</h2>
+                    <h2 className="mb-6 text-2xl font-bold tracking-wide">PATIENT LOGIN</h2>
                     <LoginForm page="patient" />
                     <Button asChild variant='link'>
                         <Link to="/forget-pass/patient">Forget Pass ?</Link>

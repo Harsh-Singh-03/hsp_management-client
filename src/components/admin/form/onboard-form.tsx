@@ -116,7 +116,7 @@ export const OnboardingForm = ({isEdit, initialData, department, isHome}: props)
             closeRef.current?.click()
             form.reset()
             if(isHome){
-                toast.success("Request for for register as doctor submited!!")
+                toast.success(data.message)
                 navigate('/doctor/login')
             }else{
                 toast.success(data.message)

@@ -19,6 +19,8 @@ import { DoctorDashboard } from './screen/doctor/doctor_dashboard'
 import { Home } from './screen/Home.js'
 import { ForgetPass } from './screen/forget_pass.js'
 import { NewPass } from './screen/new_pass.js'
+import { VerifyEmail } from './screen/email_verify.js'
+import { SupportPage } from './screen/admin/support.js'
 
 function App() {
   return (
@@ -40,6 +42,9 @@ function App() {
         <Route path="/admin/appointments" element={<ValidateAdmin />}>
           <Route index element={<Appointments />} />
         </Route>
+        <Route path="/admin/support" element={<ValidateAdmin />}>
+          <Route index element={<SupportPage />} />
+        </Route>
 
         {/* patient route */}
         <Route path="/patient" element={<ValidatePatient />}>
@@ -56,6 +61,7 @@ function App() {
         <Route path="/patient/login" element={<PatientLogin />} />
         <Route path="/forget-pass/:path" element={<ForgetPass />} />
         <Route path="/new-pass/:path/:id/:token" element={<NewPass />} />
+        <Route path="/verify-email/:path/:id/:token" element={<VerifyEmail />} />
 
       </Routes>
       <ToastContainer

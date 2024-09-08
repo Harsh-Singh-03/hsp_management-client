@@ -63,6 +63,14 @@ export const admin_credentials = {
             return {message: error?.response?.data?.message || 'server error', success: false}
         }
     },
+    reset_pass: async (values: any) => {
+        try {
+            const {data} = await axios.post(`${base_url}/admin/reset-password`, values, {withCredentials: true} )
+            return data
+        } catch (error : any) {
+            return {message: error?.response?.data?.message || 'server error', success: false}
+        }
+    },
     logout: async () => {
         try {
             const {data} = await axios.post(`${base_url}/admin/sign-out`,{}, {withCredentials: true})
@@ -109,6 +117,30 @@ export const doctors_api = {
     new_pass: async (values: any) => {
         try {
             const {data} = await axios.post(`${base_url}/doctor/new-password`, values )
+            return data
+        } catch (error : any) {
+            return {message: error?.response?.data?.message || 'server error', success: false}
+        }
+    },
+    reset_pass: async (values: any) => {
+        try {
+            const {data} = await axios.post(`${base_url}/doctor/reset-password`, values, {withCredentials: true} )
+            return data
+        } catch (error : any) {
+            return {message: error?.response?.data?.message || 'server error', success: false}
+        }
+    },
+    verify_email_req: async (values: any) => {
+        try {
+            const {data} = await axios.post(`${base_url}/doctor/email-verify/req`, values, { withCredentials: true } )
+            return data
+        } catch (error : any) {
+            return {message: error?.response?.data?.message || 'server error', success: false}
+        }
+    },
+    verify_email: async (values: any) => {
+        try {
+            const {data} = await axios.post(`${base_url}/doctor/email-verify`, values )
             return data
         } catch (error : any) {
             return {message: error?.response?.data?.message || 'server error', success: false}
@@ -176,6 +208,38 @@ export const patient_api = {
     new_pass: async (values: any) => {
         try {
             const {data} = await axios.post(`${base_url}/patient/new-password`, values )
+            return data
+        } catch (error : any) {
+            return {message: error?.response?.data?.message || 'server error', success: false}
+        }
+    },
+    reset_pass: async (values: any) => {
+        try {
+            const {data} = await axios.post(`${base_url}/patient/reset-password`, values, {withCredentials: true} )
+            return data
+        } catch (error : any) {
+            return {message: error?.response?.data?.message || 'server error', success: false}
+        }
+    },
+    verify_email_req: async (values: any) => {
+        try {
+            const {data} = await axios.post(`${base_url}/patient/email-verify/req`, values, { withCredentials: true } )
+            return data
+        } catch (error : any) {
+            return {message: error?.response?.data?.message || 'server error', success: false}
+        }
+    },
+    verify_email: async (values: any) => {
+        try {
+            const {data} = await axios.post(`${base_url}/patient/email-verify`, values )
+            return data
+        } catch (error : any) {
+            return {message: error?.response?.data?.message || 'server error', success: false}
+        }
+    },
+    update_profile: async (values: any) => {
+        try {
+            const {data} = await axios.post(`${base_url}/patient/update-profile`, values, {withCredentials: true} )
             return data
         } catch (error : any) {
             return {message: error?.response?.data?.message || 'server error', success: false}
@@ -268,6 +332,61 @@ export const files_api = {
     delete: async (files : any) => {
         try{
             const {data} = await axios.post(`${base_url}/files/delete`, files )
+            return data
+        } catch (error : any) {
+            return {message: error?.response?.data?.message || 'server error', success: false}
+        }
+    },
+}
+
+export const support_api = {
+    create: async (values : any) => {
+        try{
+            const {data} = await axios.post(`${base_url}/support/new-req`, values )
+            return data
+        } catch (error : any) {
+            return {message: error?.response?.data?.message || 'server error', success: false}
+        }
+    },
+    list: async (values : any) => {
+        try{
+            const {data} = await axios.post(`${base_url}/support/list`, values, {withCredentials: true} )
+            return data
+        } catch (error : any) {
+            return {message: error?.response?.data?.message || 'server error', success: false}
+        }
+    },
+    reply: async (values : any, id: string) => {
+        try{
+            const {data} = await axios.post(`${base_url}/support/reply/${id}`, values, {withCredentials: true} )
+            return data
+        } catch (error : any) {
+            return {message: error?.response?.data?.message || 'server error', success: false}
+        }
+    },
+
+}
+
+export const admin_dashboard = {
+    department_analytics: async (values: any) => {
+        try {
+            const {data} = await axios.post(`${base_url}/admin/department/analytics`, values, {withCredentials: true})
+            return data
+        } catch (error : any) {
+            return {message: error?.response?.data?.message || 'server error', success: false}
+        }
+    },
+    patient_analytics: async (values: any) => {
+        try {
+            const {data} = await axios.post(`${base_url}/admin/patient/analytics`, values, {withCredentials: true})
+            return data
+        } catch (error : any) {
+            return {message: error?.response?.data?.message || 'server error', success: false}
+        }
+    },
+    appointment_analytics: async (values: any) => {
+        try {
+            const {data} = await axios.post(`${base_url}/admin/appointment/analytics`, values, {withCredentials: true})
             return data
         } catch (error : any) {
             return {message: error?.response?.data?.message || 'server error', success: false}

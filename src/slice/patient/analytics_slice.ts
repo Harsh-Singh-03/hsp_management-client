@@ -26,7 +26,7 @@ export const patient_analytics = createAsyncThunk(
 
             return data;
         } catch (error: any) {
-            toast.error(error?.response?.data?.message || error?.message || 'server error')
+            // toast.error(error?.response?.data?.message || error?.message || 'server error')
             return rejectWithValue(error?.response?.data?.message || error?.message || 'server error');
         }
     }

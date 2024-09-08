@@ -19,7 +19,7 @@ export const CardList = () => {
 
     return (
         <div className="flex w-full gap-4 lg:gap-6 overflow-x-scroll max-w-[100%] h-auto custom-scrollbar px-6">
-            <StatsCard style="primary" Icon={BarChart3} title="Todat Appointments" value={data?.today_appointments} />
+            <StatsCard style="primary" Icon={BarChart3} title="Today Appointments" value={data?.today_appointments} />
             <StatsCard style="secondary" Icon={BarChart3} title="Total Appointments" value={data?.total_appointments} />
             <StatsCard style="third" Icon={BarChart3} title="Completed Appointments" value={data?.total_complete_appointments} />
             <StatsCard style="fourth" Icon={BarChart3} title="Active Doctors" value={data?.total_active_doctors} />

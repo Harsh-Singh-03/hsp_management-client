@@ -1,4 +1,6 @@
 import { Button } from '@/components/ui/button';
+import { admin_dashboard } from '@/lib/api';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { PieChart, Pie, Cell, Tooltip } from 'recharts';
 
@@ -11,9 +13,23 @@ const data = [
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
 export const Chart2 = () => {
+
+    const [analytics, setAnalytics] = useState<{ isLoading: boolean, data: any }>({ isLoading: false, data: null });
+
+    useEffect(() => {
+        const fetchChart = async () => {
+            console.log(analytics)
+            setAnalytics({ isLoading: true, data: null });
+            const response = await admin_dashboard.department_analytics({day_count: 30})
+            setAnalytics({ isLoading: false, data: response?.data || [] });
+            console.log(response)
+        }
+        fetchChart()
+    }, [])
+
     return (
         <div className='flex flex-col flex-1 p-4 bg-white rounded-lg'>
-             <div className='flex items-center justify-between'>
+            <div className='flex items-center justify-between'>
                 <h4 className='text-base font-semibold text-neutral-700'>Department Overview</h4>
                 <Button size='sm' variant='outline' className='rounded-full' asChild>
                     <Link to='/admin/department'>
