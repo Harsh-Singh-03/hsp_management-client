@@ -18,8 +18,8 @@ interface props {
 
 export const HelpCard = ({ helpQuery, onAction }: props) => {
   return (
-    <div className="w-full overflow-hidden border rounded-lg shadow-sm bg-sky-500/10">
-      <div className="p-4 space-y-2">
+    <div className="flex flex-col w-full overflow-hidden border rounded-lg shadow-sm bg-sky-500/10">
+      <div className="flex-1 p-4 space-y-2">
         <div className="mb-2 text-xl font-bold">{helpQuery.name}</div>
         <p className="text-base text-gray-700">
           <strong>Email :</strong> {helpQuery.email}

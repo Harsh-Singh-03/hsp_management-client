@@ -393,3 +393,22 @@ export const admin_dashboard = {
         }
     },
 }
+
+export const review_api = {
+    add: async(values: any) => {
+        try {
+            const {data} = await axios.post(`${base_url}/doctor/review/add`, values, {withCredentials: true})
+            return data
+        } catch (error: any) {
+            return {message: error?.response?.data?.message || 'server error', success: false}
+        }
+    },
+    list: async(values: any) => {
+        try {
+            const {data} = await axios.post(`${base_url}/admin/doctor/reviews`, values, {withCredentials: true})
+            return data
+        } catch (error: any) {
+            return {message: error?.response?.data?.message || 'server error', success: false}
+        }
+    }
+}

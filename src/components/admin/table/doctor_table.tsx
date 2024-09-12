@@ -73,7 +73,7 @@ export const AdminDoctorTable = ({ data, loading }: props) => {
                         <TableHead className="text-base text-center text-white rounded">Specialization</TableHead>
                         <TableHead className="text-base text-center text-white rounded">Experience</TableHead>
                         <TableHead className="text-base text-center text-white rounded">Status</TableHead>
-                        {/* <TableHead className="text-base text-center text-white rounded">Rating</TableHead> */}
+                        <TableHead className="text-base text-center text-white rounded">Rating</TableHead>
                         <TableHead className="text-base text-center text-white rounded">Work status</TableHead>
                         <TableHead className="text-base text-center text-white rounded">Actions</TableHead>
                     </TableRow>
@@ -121,7 +121,7 @@ export const AdminDoctorTable = ({ data, loading }: props) => {
                                         </PopoverContent>
                                     </Popover>
                                 </TableCell>
-                                {/* <TableCell className="overflow-hidden text-sm font-medium text-center rounded min-w-fit whitespace-nowrap"></TableCell> */}
+                                <TableCell className="overflow-hidden text-sm font-medium text-center rounded min-w-fit whitespace-nowrap"></TableCell>
                                 <TableCell className="overflow-hidden text-sm font-medium text-center rounded min-w-fit whitespace-nowrap">
                                     <Popover>
                                         <PopoverTrigger>

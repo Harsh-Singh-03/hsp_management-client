@@ -8,12 +8,13 @@ import {
 } from "@/components/ui/table"
 import { Fragment, useState } from "react"
 // import { parseISO, format } from 'date-fns';
-import { Loader2, View } from "lucide-react";
+import { Edit, Loader2, View } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { UserAvatar } from "@/components/global/user-avatar";
 import { format, parseISO } from "date-fns";
 import AppointmentDetailsModal from "../global/appointment_details";
+import { DoctorReviewModal } from "../global/review";
 
 interface props {
     data: any,
@@ -23,6 +24,8 @@ interface props {
 export const PatientAppointmentTable = ({ data, loading }: props) => {
     const [dialogOpen, setDialogOpen] = useState(false)
     const [initialData, setInitialData] = useState<any>(null)
+    const [doctor, setDoctor] = useState('')
+    const [open, setOpen] = useState(false)
 
     if (loading) {
         return (
@@ -34,6 +37,7 @@ export const PatientAppointmentTable = ({ data, loading }: props) => {
 
     return (
         <Fragment>
+            <DoctorReviewModal id={doctor} open={open} setOpen={setOpen} />
             <Table className="overflow-x-auto -translate-y-2 border-separate border-spacing-2">
                 <TableHeader>
                     <TableRow className="h-12 px-4 bg-sky-800 hover:bg-sky-800">
@@ -89,8 +93,11 @@ export const PatientAppointmentTable = ({ data, loading }: props) => {
 
                                 <TableCell className="text-sm font-medium text-center rounded min-w-fit">
                                     <div className="flex items-center justify-center gap-1">
-                                        <Button variant='ghost' size='icon' className="transition-all hover:bg-sky-800/80 text-sky-800 hover:text-white" onClick={() => { setDialogOpen(true); setInitialData(doc._id); }} >
+                                        <Button variant='ghost' size='icon' className="transition-all" onClick={() => { setDialogOpen(true); setInitialData(doc._id); }} >
                                             <View className="w-5 h-5" />
+                                        </Button>
+                                        <Button variant='ghost' size='icon' className="transition-all hover:bg-sky-800/80 text-sky-800 hover:text-white" onClick={() => { setOpen(true); setDoctor(doc?.doctor?._id || ''); }} >
+                                            <Edit className="w-5 h-5" />
                                         </Button>
                                     </div>
                                 </TableCell>

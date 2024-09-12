@@ -296,10 +296,10 @@ export const OnboardingForm = ({isEdit, initialData, department, isHome}: props)
                 </ScrollArea>
                 <div className="flex items-center justify-end gap-4 p-4 mt-6 bg-neutral-100">
                     {!isHome && (
-                        <DialogClose ref={closeRef} className={cn(
+                        <DialogClose className={cn(
                             isEdit && 'hidden'
-                        )}>
-                            <Button type="button" variant='second' disabled={isSubmitting}>Close</Button>
+                        )} asChild>
+                            <Button  ref={closeRef} type="button" variant='second' disabled={isSubmitting}>Close</Button>
                         </DialogClose>
                     )}
                     <Button type="submit" variant='primary' disabled={isSubmitting} >{isEdit ? 'Update' : isHome ? 'Register' : 'Onboard'}</Button>

@@ -32,3 +32,6 @@ body{
     background: #d4d4d4;
     border-radius: 10px;
 }
+.empty-icons{
+    /* display: flex !important; */
+}
