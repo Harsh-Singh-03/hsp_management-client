@@ -71,7 +71,7 @@ export const LoginForm = ({page}: {page: 'doctor' | 'admin' | 'patient'}) => {
 
     return (
         <Form {...form} >
-            <form onSubmit={form.handleSubmit(onSubmit)} className="w-full max-w-96">
+            <form onSubmit={form.handleSubmit(onSubmit)} className="w-full">
                 <div className="space-y-4">
                     <FormField
                         control={form.control}

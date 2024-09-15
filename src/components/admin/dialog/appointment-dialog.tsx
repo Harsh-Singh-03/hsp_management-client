@@ -49,7 +49,7 @@ export const AppointmentDialog = ({ children }: { children: React.ReactNode }) =
     }
 
     return (
-        <Dialog>
+        <Dialog onOpenChange={() => setStep(1)}>
             <DialogTrigger asChild>
                 {children}
             </DialogTrigger>
@@ -92,7 +92,7 @@ export const AppointmentDialog = ({ children }: { children: React.ReactNode }) =
                             </div>
                         )}
                         {isPatientForm && (
-                            <CreatePatientFrom isApp={true} onData={setPatientDetails} />
+                            <CreatePatientFrom isApp={true} onData={setPatientDetails} onBack={setIsPatientForm} />
                         )}
                     </div>
                 )}
@@ -107,7 +107,7 @@ export const AppointmentDialog = ({ children }: { children: React.ReactNode }) =
                                 </div>
                             </div>
                         </div>
-                        <AppointmentForm patient={patientDetails} />
+                        <AppointmentForm patient={patientDetails} onBack={setStep} />
                     </div>
                 )}
             </DialogContent>

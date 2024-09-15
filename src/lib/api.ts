@@ -392,6 +392,15 @@ export const admin_dashboard = {
             return {message: error?.response?.data?.message || 'server error', success: false}
         }
     },
+    top_doctor: async () => {
+        try {
+            const {data} = await axios.get(`${base_url}/admin/doctor/rated/list`, {withCredentials: true})
+            return data
+        } catch (error : any) {
+            return {message: error?.response?.data?.message || 'server error', success: false}
+        }
+    },
+    
 }
 
 export const review_api = {
@@ -403,12 +412,14 @@ export const review_api = {
             return {message: error?.response?.data?.message || 'server error', success: false}
         }
     },
-    list: async(values: any) => {
+    list: async(values: any, path: 'admin' | 'doctor' | 'patient') => {
         try {
-            const {data} = await axios.post(`${base_url}/admin/doctor/reviews`, values, {withCredentials: true})
+            const url = path === 'admin' ? '/admin/doctor/reviews' : '/doctor/reviews'
+            const {data} = await axios.post(`${base_url}${url}`, values, {withCredentials: true})
             return data
         } catch (error: any) {
             return {message: error?.response?.data?.message || 'server error', success: false}
         }
-    }
+    },
+    
 }

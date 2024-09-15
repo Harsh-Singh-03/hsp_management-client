@@ -1,18 +1,26 @@
 import { cn } from "@/lib/utils";
-import { LucideIcon } from "lucide-react";
+import { ArrowLeftToLine, LucideIcon } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 interface props {
     title: string;
     Icon?: LucideIcon,
     children?: React.ReactNode,
     IconClass?: string,
-    headingStyle?: string
+    headingStyle?: string,
+    isBack?: boolean
 }
 
-export const AdminHeading = ({title, Icon, children, IconClass, headingStyle}: props) => {
+export const AdminHeading = ({title, Icon, children, IconClass, headingStyle, isBack}: props) => {
+    const Navigate = useNavigate()
     return (
         <div className="flex flex-wrap items-center justify-between gap-4">
             <div className="flex items-center gap-4">
+                {isBack && (
+                    <button onClick={() => Navigate(-1)}>
+                        <ArrowLeftToLine />
+                    </button>
+                )}
                 {Icon && (
                     <Icon className={cn(
                         "h-10 w-10",

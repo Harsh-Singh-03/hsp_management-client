@@ -1,6 +1,6 @@
 import { DashboardCardSkeleton, StatsCard } from "@/components/global/stats-card"
 import { RootState } from "@/store";
-import { BarChart3 } from "lucide-react"
+import { BarChart3, CalendarCheck, CalendarClock, Stethoscope } from "lucide-react"
 import { useSelector } from "react-redux";
 
 export const CardList = () => {
@@ -19,10 +19,10 @@ export const CardList = () => {
 
     return (
         <div className="flex w-full gap-4 lg:gap-6 overflow-x-scroll max-w-[100%] h-auto custom-scrollbar px-6">
-            <StatsCard style="primary" Icon={BarChart3} title="Today Appointments" value={data?.today_appointments} />
+            <StatsCard style="primary" Icon={CalendarClock} title="Today Appointments" value={data?.total_appointments_today} />
             <StatsCard style="secondary" Icon={BarChart3} title="Total Appointments" value={data?.total_appointments} />
-            <StatsCard style="third" Icon={BarChart3} title="Completed Appointments" value={data?.total_complete_appointments} />
-            <StatsCard style="fourth" Icon={BarChart3} title="Active Doctors" value={data?.total_active_doctors} />
+            <StatsCard style="third" Icon={CalendarCheck} title="Completed Appointments" value={data?.total_completed_appointment} />
+            <StatsCard style="fourth" Icon={Stethoscope} title="Active Doctors" value={data?.active_doctor} />
         </div>
     )
 }

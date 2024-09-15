@@ -1,81 +1,22 @@
-import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Button } from '@/components/ui/button';
+import { admin_dashboard } from '@/lib/api';
+import { Loader2 } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 
 export const Chart1 = () => {
-    const data = [
-        {
-            name: 'Jan',
-            uv: 4000,
-            pv: 6400,
-            amt: 2400,
-        },
-        {
-            name: 'Feb',
-            uv: 3000,
-            pv: 7398,
-            amt: 2210,
-        },
-        {
-            name: 'Mar',
-            uv: 1000,
-            pv: 9800,
-            amt: 2290,
-        },
-        {
-            name: 'Apr',
-            uv: 8780,
-            pv: 10908,
-            amt: 2000,
-        },
-        {
-            name: 'May',
-            uv: 9890,
-            pv: 15800,
-            amt: 2181,
-        },
-        {
-            name: 'Jun',
-            uv: 2390,
-            pv: 6800,
-            amt: 2500,
-        },
-        {
-            name: 'Jul',
-            uv: 8490,
-            pv: 12300,
-            amt: 2100,
-        },
-        {
-            name: 'Aug',
-            uv: 7490,
-            pv: 12300,
-            amt: 2100,
-        },
-        {
-            name: 'Sep',
-            uv: 3490,
-            pv: 12300,
-            amt: 2100,
-        },
-        {
-            name: 'Oct',
-            uv: 6490,
-            pv: 10300,
-            amt: 2100,
-        },
-        {
-            name: 'Nov',
-            uv: 6490,
-            pv: 10300,
-            amt: 2100,
-        },
-        {
-            name: 'Dec',
-            uv: 5490,
-            pv: 8300,
-            amt: 2100,
-        },
-    ];
+    const [analytics, setAnalytics] = useState<{ isLoading: boolean, data: any }>({ isLoading: false, data: null });
+
+    useEffect(() => {
+        const fetchChart = async () => {
+            setAnalytics({ isLoading: true, data: null });
+            const response = await admin_dashboard.patient_analytics({ filter: 'day' })
+            setAnalytics({ isLoading: false, data: response?.data || [] });
+            console.log(response, 'analytics1')
+        }
+        fetchChart()
+    }, [])
 
     return (
         <div className='hidden lg:block w-[60%] max-h-[430px] bg-white rounded-xl min-w-[400px]'>
@@ -83,42 +24,44 @@ export const Chart1 = () => {
                 <h4 className='text-base font-semibold text-neutral-700'>Patient Overview</h4>
                 <div className='flex items-center gap-4'>
                     <div className='flex items-center gap-1'>
-                        <span className='w-3 h-3 rounded-full bg-sky-600'></span>
+                        <span className='w-3 h-3 rounded-full bg-sky-800'></span>
                         <span className='text-xs font-medium text-neutral-500'>Recovered</span>
                     </div>
                     <div className='flex items-center gap-1'>
                         <span className='w-3 h-3 rounded-full bg-sky-300'></span>
                         <span className='text-xs font-medium text-neutral-500'>Admitted</span>
                     </div>
-                    <Select defaultValue='apple'>
-                        <SelectTrigger className="w-[120px] rounded-full py-1">
-                            <SelectValue placeholder="Select a fruit" />
-                        </SelectTrigger>
-                        <SelectContent className='shadow-none'>
-                            <SelectGroup>
-                                <SelectLabel>Filter</SelectLabel>
-                                <SelectItem value="apple">Monthly</SelectItem>
-                                <SelectItem value="banana">Last month</SelectItem>
-                                <SelectItem value="blueberry">Last 3 month</SelectItem>
-                                <SelectItem value="grapes">Last 6 month</SelectItem>
-                                <SelectItem value="pineapple">View all</SelectItem>
-                            </SelectGroup>
-                        </SelectContent>
-                    </Select>
+                    <Button size='sm' variant='outline' className='rounded-full' asChild>
+                        <Link to='/admin/patients'>
+                            View all
+                        </Link>
+                    </Button>
                 </div>
             </div>
-            <ResponsiveContainer width="100%" height="85%" className='py-4 pr-4'>
-                <BarChart
-                    data={data}
-                    barSize={20}
-                >
-                    <XAxis dataKey="name" className='text-xs truncate text-neutral-500' />
-                    <YAxis />
-                    <Tooltip  />
-                    <Bar dataKey="pv" className='fill-sky-800' radius={[999, 999, 0, 0]} />
-                    <Bar dataKey="uv" fill='#0284c7' radius={[999, 999, 0, 0]}  />
-                </BarChart>
-            </ResponsiveContainer>
+            {analytics.isLoading && (
+                <div className="flex justify-center w-full my-8">
+                    <Loader2 className="w-12 h-12 animate-spin text-neutral-600" />
+                </div>
+            )}
+
+            {!analytics.isLoading && analytics.data?.length === 0 && (
+                <p className='text-base text-center text-gray-500'>No Appointment found in last 10 days</p>
+            )}
+
+            {!analytics.isLoading && analytics.data?.length > 0 && (
+                <ResponsiveContainer width="100%" height="85%" className='py-4 pr-4 min-h-[300px]'>
+                    <BarChart
+                        data={analytics.data || []}
+                        barSize={20}
+                    >
+                        <XAxis dataKey="day" className='text-xs truncate text-neutral-500' />
+                        <YAxis />
+                        <Tooltip />
+                        <Bar dataKey="Recovered" className='fill-sky-800' radius={[999, 999, 0, 0]} />
+                        <Bar dataKey="Admitted" fill='#7dd3fc' radius={[999, 999, 0, 0]} />
+                    </BarChart>
+                </ResponsiveContainer>
+            )}
         </div>
     )
 }

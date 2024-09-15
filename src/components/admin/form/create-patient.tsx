@@ -46,9 +46,10 @@ interface props {
     isApp?: boolean
     isHome?: boolean
     onData?: Dispatch<SetStateAction<any>>
+    onBack?: Dispatch<SetStateAction<any>>
 }
 
-export const CreatePatientFrom = ({isApp, onData, isHome}: props) => {
+export const CreatePatientFrom = ({isApp, onData, isHome, onBack}: props) => {
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [fileLoading, setFileLoading] = useState(false)
     const dispatch = useDispatch<AppDispatch>();
@@ -276,6 +277,9 @@ export const CreatePatientFrom = ({isApp, onData, isHome}: props) => {
                         <DialogClose ref={closeRef} >
                             <Button type="button" variant='second' disabled={isSubmitting}>Close</Button>
                         </DialogClose>
+                    )}
+                    {onBack !== undefined && (
+                        <Button type="button" variant='second' onClick={() => onBack(false)} disabled={isSubmitting}>Back</Button>
                     )}
                     <Button type="submit" variant='primary' disabled={isSubmitting} >{isApp ? 'Next' : isHome ? 'Register' : 'Onboard'}</Button>
                 </div>

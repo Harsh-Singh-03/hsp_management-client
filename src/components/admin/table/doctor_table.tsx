@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/table"
 import { Fragment, useState } from "react"
 // import { parseISO, format } from 'date-fns';
-import { Edit, Loader2, Trash2 } from "lucide-react";
+import { Edit, Loader2, Trash2, View } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { UserAvatar } from "@/components/global/user-avatar";
@@ -20,6 +20,7 @@ import { useDispatch } from "react-redux";
 import { doctors_api } from "@/lib/api";
 import { doctor_list } from "@/slice/admin/doctor_slice";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Link } from "react-router-dom";
 
 interface props {
     data: any,
@@ -73,7 +74,8 @@ export const AdminDoctorTable = ({ data, loading }: props) => {
                         <TableHead className="text-base text-center text-white rounded">Specialization</TableHead>
                         <TableHead className="text-base text-center text-white rounded">Experience</TableHead>
                         <TableHead className="text-base text-center text-white rounded">Status</TableHead>
-                        <TableHead className="text-base text-center text-white rounded">Rating</TableHead>
+                        <TableHead className="text-base text-center text-white rounded">Avg Rating</TableHead>
+                        <TableHead className="text-base text-center text-white rounded">Total Rating</TableHead>
                         <TableHead className="text-base text-center text-white rounded">Work status</TableHead>
                         <TableHead className="text-base text-center text-white rounded">Actions</TableHead>
                     </TableRow>
@@ -121,7 +123,8 @@ export const AdminDoctorTable = ({ data, loading }: props) => {
                                         </PopoverContent>
                                     </Popover>
                                 </TableCell>
-                                <TableCell className="overflow-hidden text-sm font-medium text-center rounded min-w-fit whitespace-nowrap"></TableCell>
+                                <TableCell className="overflow-hidden text-sm font-medium text-center rounded min-w-fit whitespace-nowrap">{doc?.avg_rating}</TableCell>
+                                <TableCell className="overflow-hidden text-sm font-medium text-center rounded min-w-fit whitespace-nowrap">{doc?.total_rating}</TableCell>
                                 <TableCell className="overflow-hidden text-sm font-medium text-center rounded min-w-fit whitespace-nowrap">
                                     <Popover>
                                         <PopoverTrigger>
@@ -151,6 +154,9 @@ export const AdminDoctorTable = ({ data, loading }: props) => {
                                 </TableCell>
                                 <TableCell className="text-sm font-medium text-center rounded min-w-fit">
                                     <div className="flex items-center justify-center gap-1">
+                                        <Button variant='ghost' size='icon' asChild >
+                                            <Link to={`/doctor-review/${doc._id}`}><View className="w-5 h-5" /></Link>
+                                        </Button>
                                         <Button variant='ghost' size='icon' className="transition-all hover:bg-sky-800/80 text-sky-800 hover:text-white" onClick={() => { setDialogOpen(true); setInitialData(doc); }} >
                                             <Edit className="w-5 h-5" />
                                         </Button>

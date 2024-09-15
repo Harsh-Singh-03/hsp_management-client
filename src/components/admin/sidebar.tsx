@@ -33,13 +33,13 @@ export const SideBar = () => {
     const SideMenu = ({ hide }: { hide?: boolean }) => {
         return (
             <aside className="flex flex-col w-full h-full overflow-hidden bg-white min-h-svh rounded-t-xl rounded-r-xl">
-                <div className={cn(
+                <Link to='/' className={cn(
                     "flex items-center gap-1 px-4 py-2",
                     hide && 'hidden'
                 )}>
                     <img src="/logo.png" alt="logo" className="object-contain w-10 h-10" />
                     <h4 className="text-xl font-semibold tracking-wide text-neutral-700">Hospitality</h4>
-                </div>
+                </Link>
                 <ul className="flex flex-col gap-3 pb-10 mt-9">
                     {admin_sidebar.map((item, index) => {
                         return (

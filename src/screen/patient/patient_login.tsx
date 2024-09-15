@@ -31,16 +31,16 @@ export const PatientLogin = () => {
 
     if (loading === false && isLoggedIn === false) {
         return (
-            <div className="flex w-screen gap-12 h-svh">
-                <div className="w-[55%] border-r bg-neutral-100 hidden md:block">
-
-                </div>
-                <div className="flex flex-col items-center justify-center flex-1 w-full px-4 md:items-start md:px-0 md:pr-4">
-                    <h2 className="mb-6 text-2xl font-bold tracking-wide">PATIENT LOGIN</h2>
-                    <LoginForm page="patient" />
-                    <Button asChild variant='link'>
-                        <Link to="/forget-pass/patient">Forget Pass ?</Link>
-                    </Button>
+            <div className="relative flex justify-end w-screen gap-12 h-svh">
+                <img src="/auth-bg.svg" alt="" className="absolute top-0 left-0 object-cover w-full h-full z-[-1]" />
+                <div className="flex items-center justify-center w-full px-4 shadow-sm">
+                    <div className="p-4 bg-white rounded-md w-full max-w-[500px]">
+                        <h2 className="mb-6 text-2xl font-bold tracking-wide">PATIENT LOGIN</h2>
+                        <LoginForm page="patient" />
+                        <Button asChild variant='link'>
+                            <Link to="/forget-pass/patient">Forget Pass ?</Link>
+                        </Button>
+                    </div>
                 </div>
             </div>
         )

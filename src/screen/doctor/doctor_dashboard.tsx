@@ -12,10 +12,11 @@ import { doctors_api } from "@/lib/api"
 import { doctor_analytics } from "@/slice/doctor/analytics_slice"
 import { doctor_appointment_list } from "@/slice/doctor/appointment_slice"
 import { AppDispatch, RootState } from "@/store"
+import { StarFilledIcon } from "@radix-ui/react-icons"
 import { CalendarClock, ClipboardCheck, LayoutDashboard, RectangleEllipsis, SquareActivity, Terminal } from "lucide-react"
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { useLocation } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 import { toast } from "react-toastify"
 
 export const DoctorDashboard = () => {
@@ -76,9 +77,19 @@ export const DoctorDashboard = () => {
                 </Alert>
             )}
             <div className="space-y-4 lg:space-y-6">
-                <AdminHeading title="Doctor Panel" Icon={LayoutDashboard} IconClass="text-sky-800 stroke-[2px]">
-                    <></>
+                <AdminHeading title={`Welcome, ${doctor?.data?.name?.split(' ')[0]}`} Icon={LayoutDashboard} IconClass="text-sky-800 stroke-[2px]">
+                    <Button variant='primary' size='default' asChild>
+                        <Link to='/doctor/reviews'>Reviews</Link>
+                    </Button>
                 </AdminHeading>
+                {doctor?.data?.total_rating > 0 && (
+                    <div className="flex items-center gap-2 text-base text-gray-500">
+                        <h4 className="text-lg font-semibold text-black">Your Rating : </h4>
+                        {doctor?.data?.avg_rating} 
+                        <StarFilledIcon className="text-yellow-400" /> 
+                        <span>Rated by {doctor?.data?.total_rating} {doctor?.data?.total_rating > 1 ? 'Patients' : 'Patient'}</span>
+                    </div>
+                )}
 
                 <div className="flex w-full gap-4 lg:gap-6 overflow-x-scroll max-w-[100%] h-auto pr-4">
                     <StatsCard style="primary" Icon={CalendarClock} title="Total Appointments" value={doctor_stats.data?.total_appointments} />

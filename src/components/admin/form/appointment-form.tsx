@@ -13,13 +13,10 @@ import { useDispatch, useSelector } from "react-redux"
 import { DialogClose } from "@/components/ui/dialog"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { CheckIcon } from "lucide-react"
 import { dep_list } from "@/slice/admin/department_slice"
 import { Textarea } from "@/components/ui/textarea"
 import { doctor_list } from "@/slice/admin/doctor_slice"
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
-import { CaretSortIcon } from "@radix-ui/react-icons"
-import { cn } from "@/lib/utils"
+import { appointment_list } from "@/slice/admin/appointment_slice"
 
 const formSchema = z.object({
     from: z.string().min(3, {
@@ -39,13 +36,11 @@ const formSchema = z.object({
     }),
 })
 
-export const AppointmentForm = ({ patient }: { patient: any }) => {
+export const AppointmentForm = ({ patient, onBack }: { patient: any, onBack?: any }) => {
     const [isSubmitting, setIsSubmitting] = useState(false)
     const dispatch = useDispatch<AppDispatch>();
     const { data } = useSelector((state: RootState) => state.department);
     const doctorsList = useSelector((state: RootState) => state.doctors_list);
-    const [open, setOpen] = useState(false)
-    const [doc_list, setDocList] = useState<any[]>([])
 
     const closeRef = useRef<HTMLButtonElement | null>(null)
 
@@ -70,19 +65,6 @@ export const AppointmentForm = ({ patient }: { patient: any }) => {
         dispatch(doctor_list({ limit: 100, status: 'approved', work_status: 'available' }))
     }, [])
 
-    useEffect(() => {
-        setDocList(doctorsList?.data?.docs || [])
-    }, [doctorsList])
-
-    const changeDoc = (value: string) => {
-        if (value !== '') {
-            const fil_arr = doctorsList?.data?.docs.filter((doc: any) => (doc?.name?.includes(value) || doc?.email?.includes(value) || doc?.phone?.includes(value)))
-            setDocList(fil_arr)
-        } else {
-            setDocList(doctorsList?.data?.docs || [])
-        }
-    }
-
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         const body: any = { ...values }
         body.status = 'scheduled'
@@ -92,6 +74,7 @@ export const AppointmentForm = ({ patient }: { patient: any }) => {
         if (data.success === true) {
             form.reset()
             closeRef?.current?.click()
+            dispatch(appointment_list({page: 1, limit: 10})).unwrap();
             toast.success(data.message)
         } else {
             toast.warn(data.message)
@@ -105,7 +88,7 @@ export const AppointmentForm = ({ patient }: { patient: any }) => {
                 <ScrollArea className="h-[50vh]">
                     <div className="w-full px-4 space-y-4 pb-0.5">
 
-                        <Controller
+                        {/* <Controller
                             control={form.control}
                             name="doctor"
                             render={({ field }) => (
@@ -126,7 +109,7 @@ export const AppointmentForm = ({ patient }: { patient: any }) => {
                                                     <CaretSortIcon className="w-4 h-4 ml-2 opacity-50 shrink-0" />
                                                 </Button>
                                             </PopoverTrigger>
-                                            <PopoverContent className="w-full min-w-full p-4">
+                                            <PopoverContent className="z-50 w-full min-w-full p-4" >
                                                 <Input type="text" placeholder="Search doctor..." className="w-full mb-3 h-9" onChange={(e) => changeDoc(e.target.value)} />
                                                 {doc_list.length === 0 && (
                                                     <p className="text-center w-96">No doctor found.</p>
@@ -156,6 +139,32 @@ export const AppointmentForm = ({ patient }: { patient: any }) => {
 
                                             </PopoverContent>
                                         </Popover>
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        /> */}
+                           <Controller
+                            control={form.control}
+                            name="doctor"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Assign doctor :</FormLabel>
+                                    <FormControl>
+                                        <Select
+                                            value={field.value}
+                                            onValueChange={field.onChange}
+                                            disabled={isSubmitting}
+                                        >
+                                            <SelectTrigger>
+                                                <SelectValue placeholder="Select doctor" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                {doctorsList?.data?.docs?.map((item: any, i: number) => (
+                                                    <SelectItem value={item._id} key={i}>{item?.name}</SelectItem>
+                                                ))}
+                                            </SelectContent>
+                                        </Select>
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -232,8 +241,11 @@ export const AppointmentForm = ({ patient }: { patient: any }) => {
                     </div>
                 </ScrollArea>
                 <div className="flex items-center justify-end gap-4 p-4 mt-6 bg-neutral-100">
-                    <DialogClose ref={closeRef}>
-                        <Button type="button" variant='second' disabled={isSubmitting}>Close</Button>
+                    {onBack !== undefined && (
+                        <Button type="button" variant='default' onClick={() => onBack(1)} disabled={isSubmitting}>Back</Button>
+                    )}
+                    <DialogClose asChild >
+                        <Button type="button" ref={closeRef} variant='second' disabled={isSubmitting}>Close</Button>
                     </DialogClose>
                     <Button type="submit" variant='primary' disabled={isSubmitting} >Submit</Button>
                 </div>

@@ -22,6 +22,10 @@ export const DoctorReviewModal = ({ open, setOpen, id }: props) => {
 
     const onSubmit = async(e: any) => {
         e.preventDefault()
+        if(!rating || Number(rating) > 5){
+            toast.info("Please select valid rating 1 to 5!")
+            return
+        }
         setIsSubmitting(true)
         const obj = {
             doctor: id,
@@ -49,9 +53,9 @@ export const DoctorReviewModal = ({ open, setOpen, id }: props) => {
                 </DialogHeader>
                 <form className="p-4 pt-0" onSubmit={onSubmit}>
                     <Label>Rating Count :</Label>
-                    <Input type="number" min={1} max={5} value={rating} onChange={(e) => setRating(e.target.value)} placeholder="Enter rating" className="mt-2 mb-4" />
+                    <Input type="number" min={1} max={5} value={rating} onChange={(e) => setRating(e.target.value)} placeholder="Enter rating" className="mt-2 mb-4" required />
                     <Label>Describe Review:</Label>
-                    <Textarea placeholder="Describe review.." rows={3} value={review} onChange={(e) => setReview(e.target.value)} className="mt-2" />
+                    <Textarea placeholder="Describe review.." rows={3} value={review} onChange={(e) => setReview(e.target.value)} className="mt-2"  />
                     <div className="flex items-center justify-end gap-4 p-4 mt-6 bg-neutral-100">
                         <DialogClose ref={closeRef} >
                             <Button type="button" variant='second' disabled={isSubmitting}>Close</Button>

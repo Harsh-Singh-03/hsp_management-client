@@ -2,10 +2,9 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } f
 import { OnboardingForm } from "../form/onboard-form"
 import { Separator } from "@/components/ui/separator"
 import { useEffect, useState } from "react"
-import { doctors_api, review_api } from "@/lib/api"
-import { UserAvatar } from "@/components/global/user-avatar"
+import { review_api } from "@/lib/api"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import { Star } from "lucide-react"
+import { ReviewCard } from "@/components/global/review-card"
 interface props {
     open: boolean,
     setOpen: React.Dispatch<React.SetStateAction<boolean>>,
@@ -48,19 +47,7 @@ export const EditDoctor = ({ open, setOpen, initialData }: props) => {
                             <h4 className="mb-2 text-xl font-semibold">Reviews & Ratings :</h4>
                             {reviews?.docs?.map((rev: any, i: number) => {
                                 return (
-                                    <div key={i} className="flex gap-3">
-                                        <div className="">
-                                            <UserAvatar imageUrl={rev?.patient_image} placeholder={rev?.patient_name || 'A'} />
-                                        </div>
-                                        <div className="flex-1 p-3 bg-gray-100 rounded-lg">
-                                            <h4 className="text-lg font-semibold">{rev?.patient_name}</h4>
-                                            <div className="flex items-center gap-1">
-                                                <p className="m-0">{rev?.rating}</p>
-                                                <Star className="w-4 h-4 text-yellow-400 stroke-[3px]" />
-                                            </div>
-                                            <p className="mt-1 text-sm tracking-wide text-gray-700">{rev?.review || ""}</p>
-                                        </div>
-                                    </div>
+                                    <ReviewCard key={i} rev={rev} />
                                 )
                             })}
 

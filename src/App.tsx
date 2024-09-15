@@ -21,6 +21,9 @@ import { ForgetPass } from './screen/forget_pass.js'
 import { NewPass } from './screen/new_pass.js'
 import { VerifyEmail } from './screen/email_verify.js'
 import { SupportPage } from './screen/admin/support.js'
+import { DoctorReview } from './screen/admin/doctor-review.js'
+import { NotFound } from './screen/404.js'
+import { MyReview } from './screen/doctor/reviews.js'
 
 function App() {
   return (
@@ -35,6 +38,9 @@ function App() {
         </Route>
         <Route path="/admin/doctors" element={<ValidateAdmin />}>
           <Route index element={<Doctors />} />
+        </Route>
+        <Route path="/doctor-review/:id" element={<ValidateAdmin />}>
+          <Route index element={<DoctorReview />} />
         </Route>
         <Route path="/admin/patients" element={<ValidateAdmin />}>
           <Route index element={<Patients />} />
@@ -54,6 +60,10 @@ function App() {
         <Route path="/doctor" element={<ValidateDoctor />}>
           <Route index element={<DoctorDashboard />} />
         </Route>
+        <Route path="/doctor/reviews" element={<ValidateDoctor />}>
+          <Route index element={<MyReview />} />
+        </Route>
+
         {/* credentials route */}
         <Route path="/" element={<Home />} />
         <Route path="/admin/login" element={<AdminLogin />} />
@@ -62,6 +72,8 @@ function App() {
         <Route path="/forget-pass/:path" element={<ForgetPass />} />
         <Route path="/new-pass/:path/:id/:token" element={<NewPass />} />
         <Route path="/verify-email/:path/:id/:token" element={<VerifyEmail />} />
+
+        <Route path="/*" element={<NotFound />} />
 
       </Routes>
       <ToastContainer
