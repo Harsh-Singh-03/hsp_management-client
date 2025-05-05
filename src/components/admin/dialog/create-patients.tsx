@@ -13,7 +13,7 @@ export const OnboardPatient = ({ children }: { children: React.ReactNode }) => {
                     <DialogTitle className="text-xl font-bold tracking-wide text-center">Onboard new patient</DialogTitle>
                     <DialogDescription className="text-center">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam autem similique qui minus suscipit?</DialogDescription>
                 </DialogHeader>
-                <CreatePatientFrom isApp={false} />
+                <CreatePatientFrom isApp={true} />
             </DialogContent>
         </Dialog>
     )

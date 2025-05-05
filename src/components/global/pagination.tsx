@@ -6,21 +6,17 @@ import {
     PaginationNext,
     PaginationPrevious,
 } from "@/components/ui/pagination"
-import { useEffect, useState } from "react";
 
 interface props{
-    isPrev: boolean;
-    isNext: boolean;
     totalPages: number;
     currentPage: number;
-    page: number;
-    setPage: React.Dispatch<React.SetStateAction<number>>
+    // setPage: React.Dispatch<React.SetStateAction<number>>
 }
 
-export const PaginationComponent = ({isPrev, isNext, totalPages, currentPage, setPage, page }: props) => {
+export const PaginationComponent = ({totalPages, currentPage }: props) => {
 
     const onPageChange = (num: number) => {
-        setPage(num)
+        // setPage(num)
         console.log(num)
     }
 
